@@ -1,0 +1,31 @@
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        make install
+
+    - name: Run the app
+      run: |
+        nohup make run &
+        sleep 10  # Give the server time to start
+
+    - name: Test server response
+      run: |
+        curl --fail http://localhost:5000/ || exit 1
