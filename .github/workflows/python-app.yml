@@ -28,4 +28,4 @@ jobs:
 
     - name: Test server response
       run: |
-        curl --fail http://localhost:5000/ || exit 1
+        curl --fail http://localhost:3000/ || exit 1
